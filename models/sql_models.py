@@ -1,6 +1,6 @@
 from peewee import Model, TextField, SqliteDatabase, ForeignKeyField, PrimaryKeyField
 
-database = SqliteDatabase('annotatedlist')
+database = SqliteDatabase('annotatedlist.db')
 
 
 class BaseModel(Model):

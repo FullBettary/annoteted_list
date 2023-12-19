@@ -12,6 +12,13 @@ def save_file(file):
         f.write(file.getbuffer())
 
 
+@st.cache_data
+def get_file(path):
+    with open(path, 'rb') as f:
+        file = f.read()
+    return file
+
+
 def delete_file(path):
     os.remove(os.path.join(path))
 
@@ -54,6 +61,9 @@ def check_password():
 if not check_password():
     st.stop()
 
+st.write('<h4>Добавить книгу</h4>',
+         unsafe_allow_html=True)
+
 authors = st.text_input(label='Список авторов. Перечисляйте авторов через запятую!')
 
 annotation = st.text_area(label='Аннотация')
@@ -71,6 +81,9 @@ if submitted:
         st.write(f'Файл добавлен как: {uploaded_file.name}')
         save_file(uploaded_file)
 
+st.write('<h4>Удалить книгу</h4>',
+         unsafe_allow_html=True)
+
 id_for_remove = st.number_input(label='Введите id книги для ее удаления', value=None, min_value=0)
 if st.button(label='Удалить!'):
     try:
@@ -79,4 +92,3 @@ if st.button(label='Удалить!'):
         delete_book(id_for_remove)
     except Exception:
         st.write('Что-то не то! Возможно такой книги в базе нет!')
-
